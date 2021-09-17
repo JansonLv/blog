@@ -6,7 +6,7 @@ author: JansonLv
 cover: /post/xxx-cover.jpg
 categories: ["学习"]
 tags: ["技术","容器", "docker"]
-typora-root-url: ../../static
+typora-root-url: ./docker_learn_note
 ---
 
 # 容器技术
@@ -278,14 +278,12 @@ Linux命令：perf和ftrace
 
 ### 容器网络
 
-
-
 Network Namespace可以隔离网络设备，ip协议栈，ip路由表，防火墙规则等，以及可以显示独立的网络状态信息
 
 我们可以通过clone()或者unshare()系统调用来简历新的network namespace。
 
 此外，还有一些工具“ip netns”，“unshare”，“lsns”和“nsenter”也可以操作。
-![network_工具包](../../static/post/docker_learn_note/network_工具包.jpeg)
+![network_工具包](./network_工具包.jpeg)
 
 #### 如何修改容器中的网络参数
 
@@ -332,7 +330,7 @@ Linux命令：tcpdump
 
 veth网络接口从配置上看，一个数据包要从容器里发送到宿主机外，需要先从容器里的eth0把包发送到宿主机的veth_host，然后再从宿主机上通过nat或者路由的方式，经过宿主机的eth0向外发送。
 
-![](../../static/post/docker_learn_note/veth网络1.jpeg)
+![](./veth网络1.jpeg)
 这种容器向外发送数据包的路径，相比宿主机直接向外发送数据包的路径，明显多了一次接口层的发送和接收，增加开销
 
 
