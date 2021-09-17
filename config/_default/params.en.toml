@@ -1,0 +1,42 @@
+Description = ""
+Keywords =  "Blog, Software, Big Data, Product, Architecture, Java, Kylin"
+Subtitle = "jansonlv"
+AuthorImg = "/img/avatar.png"
+AuthorName = "菩提本树"
+Introduce = "When work is a pleasure, life is joy! When work is duty, life is slavery."
+DateFormat = "2006/01/02"
+YearFormat = "2006Y"
+MonthFormat = "01/02"
+
+[Footer]
+  StorageLink = "github.com"
+  StorageName = "github.com"
+  ICPLink = "github.io"
+  ICPNo = "github.io"
+
+
+[[Socials]]
+  Name = "GitHub"
+  Icon = "github"
+  URL = "https://github.com/jansonlv/"
+
+[[Socials]]
+  Name = "知乎"
+  Icon = "globe"
+  URL = "https://www.zhihu.com"
+
+[[Links]]
+  Name = "hugo"
+  Permalink = "https://gohugo.io/"
+
+[[Links]]
+  Name = "lisenhui"
+  Permalink = "https://lisenhui.cn/"
+
+[[Links]]
+  Name = "qimao"
+  Permalink = "https://tech.qimao.com/"
+
+[[Links]]
+  Name = "liaoxuefeng"
+  Permalink = "https://www.liaoxuefeng.com/"

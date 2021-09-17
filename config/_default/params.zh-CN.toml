@@ -1,0 +1,42 @@
+Description = "欢迎来到jansonlv博客空间，个人主要专注于程序开发，架构"
+Keywords =  "博客, 程序员, 架构, 学习, 思考, 读书, 笔记, 技术, 分享, 开发"
+Subtitle = "jansonlv"
+AuthorImg = "/img/avatar.png"
+AuthorName = "菩提本树"
+Introduce = "工作是一种乐趣时，生活是一种享受!"
+DateFormat = "2006-01-02"
+YearFormat = "2006年"
+MonthFormat = "01-02"
+
+[Footer]
+  StorageLink = "github.com"
+  StorageName = "github.com"
+  ICPLink = "github.io"
+  ICPNo = "github.io"
+
+
+[[Socials]]
+  Name = "GitHub"
+  Icon = "github"
+  URL = "https://github.com/jansonlv/"
+
+[[Socials]]
+  Name = "知乎"
+  Icon = "globe"
+  URL = "https://www.zhihu.com"
+
+[[Links]]
+  Name = "hugo"
+  Permalink = "https://gohugo.io/"
+
+[[Links]]
+  Name = "凡梦星尘"
+  Permalink = "https://lisenhui.cn/"
+
+[[Links]]
+  Name = "qimao"
+  Permalink = "https://tech.qimao.com/"
+
+[[Links]]
+  Name = "廖雪峰"
+  Permalink = "https://www.liaoxuefeng.com/"
