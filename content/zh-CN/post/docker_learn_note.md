@@ -8,17 +8,13 @@ categories: ["学习"]
 tags: ["技术","容器", "docker"]
 typora-root-url: ./docker_learn_note
 ---
-
 # 容器技术
 
 1. 行为算法的区别（容器cpu和宿主机cpu占用率计算方式区别）
 2. 隔离程度：cpu，memory，IO
-3. 处理性能敏感的应用，需要做cgroup，网络优化等
-
-两个重点：
-
-1. Namespace和Cgroups
-2. Namespace和Cgroups对Linux原来模块的影响
+3. 处理性能敏感的应用，需要做cgroup，网络优化等两个重点：
+4. Namespace和Cgroups
+5. Namespace和Cgroups对Linux原来模块的影响
 
 ## Namespaces
 
@@ -76,9 +72,9 @@ Linux为每个信号都定义了一个缺省的行为，对大部分的信号，
 
 最终可有确定两个
 
-  1. 在容器中是不工作的，内核阻止了 1 号进程对 SIGKILL 特权信号的响应。
-   2. kill 分两种情况，如果 1 号进程没有注册 SIGTERM 的 handler，那么对 SIGTERM 信号也不响应，如果注册了 handler，那么就可以响应 SIGTERM 信号。
-        3. 在容器中，1号进程永远不会响应SIGKILL和SIGSTOP这两个特权信号。
+1. 在容器中是不工作的，内核阻止了 1 号进程对 SIGKILL 特权信号的响应。
+2. kill 分两种情况，如果 1 号进程没有注册 SIGTERM 的 handler，那么对 SIGTERM 信号也不响应，如果注册了 handler，那么就可以响应 SIGTERM 信号。
+   3. 在容器中，1号进程永远不会响应SIGKILL和SIGSTOP这两个特权信号。
 
 ### 为什么要防止僵尸进程
 
@@ -128,7 +124,7 @@ cpu的Cgroups有三个参数
 继续top
 load average: 系统中可运行队列中进程数量+休眠队列中不可打断的进程平均数
 如果load average值升高，且应用性能下降，真正的原因是什么？
-	ps aux | grep "D"
+ps aux | grep "D"
 这样子可以找到有哪些进程休眠且不可被打断了。
 D状态主要是因为disk i/o的党文和信号量的锁党文，因此,D状态在linux中很常见，这是一种对资源的竞争。
 
@@ -162,7 +158,7 @@ D状态引起的容器性能下降问题是CGroup无法解决的，因为资源�
 如果系统中有空闲的内存，系统就会自动把读写过的磁盘文件放到page cache中，如果内存不够了，就会进行内存管理机制进行内存回收。
 PageCache只是启动缓存作用，因此会被优先回收释放
 
-	linux命令：查看具体的内存使用量：cat memory.stat
+linux命令：查看具体的内存使用量：cat memory.stat
 
 ### 容器可以使用Swap空间吗？
 
@@ -174,23 +170,22 @@ swappiness取值范围：
 60：默认值，page cache的释放优先级高于匿名内存的释放
 0：当系统中内存低于临界值时，仍然会释放匿名内存并把页面写写入到swap空间
 
-
 ### 在容器中读写文件变慢了
 
 1. 容器文件系统的不支持
 
-####  容器文件系统
+#### 容器文件系统
 
-	Linux命令：pref
+Linux命令：pref
 
-*	减少相同镜像文件在同一个节点的数据冗余们可以节省磁盘空间，也可以减少镜像文件下载的网络资源
-*	UnionFS作为容器文件系统，是通过多个目录挂在的方式工作
-*	OverlayFS是UnionFS的一种实现，是目前主流Linux版本中的使用的容器文件系统
-*	OverlayFS是吧多个目录合并挂载，被挂载的目录分为两大类：lowerdir和upperdir
-*	lowerdir允许有多个目录，被挂载之后这些文件是不会被删除和修改的，也就是只读
-*	upperdir只有一个，是可读写的，挂载点的目录中所有的文件修改都会在upperdir中反应
+* 减少相同镜像文件在同一个节点的数据冗余们可以节省磁盘空间，也可以减少镜像文件下载的网络资源
+* UnionFS作为容器文件系统，是通过多个目录挂在的方式工作
+* OverlayFS是UnionFS的一种实现，是目前主流Linux版本中的使用的容器文件系统
+* OverlayFS是吧多个目录合并挂载，被挂载的目录分为两大类：lowerdir和upperdir
+* lowerdir允许有多个目录，被挂载之后这些文件是不会被删除和修改的，也就是只读
+* upperdir只有一个，是可读写的，挂载点的目录中所有的文件修改都会在upperdir中反应
 
-###  容器文件Quota：容器为什么把宿主机的磁盘写满了
+### 容器文件Quota：容器为什么把宿主机的磁盘写满了
 
 容器写入的文件都是直接写入到宿主机上的，因此有可能让把宿主机写满
 
@@ -202,10 +197,7 @@ swappiness取值范围：
    4. 给目标目录打赏一个Project ID
    5. 给这个Project ID在XFS文件系统中设置一个写入数据块的限制
 
-
-
 Docker就是使用了这个方法，用XFS Quote来限制OverlayFS的upperdir目标，通过这个方式控制同期OverlayFS根目录大小
-
 
 ### 容器里磁盘读写不稳定
 
@@ -333,15 +325,11 @@ veth网络接口从配置上看，一个数据包要从容器里发送到宿主�
 ![](./veth网络1.jpeg)
 这种容器向外发送数据包的路径，相比宿主机直接向外发送数据包的路径，明显多了一次接口层的发送和接收，增加开销
 
-
-
 如果程序对网络性能有很高要求，如何解决呢？
 
 可以使用netperf模拟测试下网络迟延问题
 
 Linux命令：netperf
-
-
 
 可以换成其他网络噢诶之模式，比如macvlan或者ipvlan
 
